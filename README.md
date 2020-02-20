@@ -26,3 +26,7 @@ For each flight, it must also be possible to record the actual take-off and land
 * Aircraft (**international_registration_nr.:int**, aircraft-nr:int, name:varchar(32), date_of_service_entry:date)
 * Aircraft Type (**type-ID:int**, _aircraft-nr.:int_, range:int)
 * Seat (**number:int**, row:char, smoker:boolean, first_class:boolean)
+
+## ER-Model Teamwork
+
+![ER-Model Teamwork](ermodel_team.jpeg)
