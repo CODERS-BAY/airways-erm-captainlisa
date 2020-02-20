@@ -9,3 +9,20 @@ Before starting the flight, the passenger will be given a boarding card at the a
 (row as number, seat as letter, e.g. 18D) and a smoking or non-smoking license plate appears. The non-smoking seats are assigned on each flight starting from the front of the aircraft, the smoking seats starting from the rear. Seating arrangements depend on the type of aircraft on which the flight is performed. For each seat the class (First Class 1 Economy) and location (window, aisle, middle) are
 to hold on to.
 For each flight, it must also be possible to record the actual take-off and landing time in order to be able to make evaluations of the punctuality of individual flights.
+
+## ER-Model
+
+![ER-Model](ermodel_airways.jpeg)
+
+## Relational Model
+
+* Passenger (**passenger-ID:int**, name:varchar(32), gender:varchar(32), title:varchar(32), date_of_birth:date)
+* Reservation (**booking-nr:int**, departure:varchar(32), destination:varchar(32), date:date, timeframe_dep:time, timeframe_arr:time)
+* Flight (**flight-nr.:varchar(32)**, date:date, departure:varchar(32), destination:varchar(32), dep_time:time, arr_time:time, actual_takeoff:time, actual_arrival:time, nr_of_seats:int, seats_taken:int)
+* Boarding Card (**_flight-nr.:varchar(32)_**, _passenger-ID:int_, _departure_airport:char_, destination:varchar(32), passenger_name:varchar(32), seat:int, row:char, date:date)
+* Ticket (**ticket-nr.:int**, date-of-issue:date, price:double, currency:char)
+* Airport (**airport-ID:varchar(32)**, city:varchar(32), country:varchar(32), name:varchar(32), aircraft-capacity:int)
+* Airline (**airline-ID:varchar(32)**, name:varchar(32), headquater:varchar(32))
+* Aircraft (**international_registration_nr.:int**, aircraft-nr:int, name:varchar(32), date_of_service_entry:date)
+* Aircraft Type (**type-ID:int**, _aircraft-nr.:int_, range:int)
+* Seat (**number:int**, row:char, smoker:boolean, first_class:boolean)
