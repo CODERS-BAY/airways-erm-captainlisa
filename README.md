@@ -37,14 +37,18 @@ For each flight, it must also be possible to record the actual take-off and land
 
 ## Relational Model (updated to version 2)
 
-* Passenger (**passenger_number:int**, first_name:varchar(20), last_name:varchar(20), salutation:varchar(5), title:varchar(10))
+* Passenger (**passenger_id:int**, first_name:varchar(20), last_name:varchar(20), salutation:varchar(5), title:varchar(10))
 * Flight (**flight_id:varchar(10)**, *flight_plan_id:int*, departure_airport:char(3), arrival_airport:char(3), departure_time:timestamp, arrival_time:timestamp, seats_available_first:int, seats_available_business:int, seats_available_economy:int, actual_departure:time, actual_arrival:time)
 * Flight Plan (**flight_plan_id:int**, flight_date:date, departure_time:timestamp, arrival_time:timestamp, is_weekly:boolean, is_daily:boolean, on_weekdays:boolean)
-* Booking (**booking_id:int**, *passenger_number:int*, departure_airport:char(3), destination_airport:char(3), flight_date:date, departure_time:time, arrival_time:time)
+* Booking (**booking_id:int**, *passenger_id:int*, departure_airport:char(3), destination_airport:char(3), flight_date:date, departure_time:time, arrival_time:time)
 * Airline (**airline_id:varchar(3)**, *flight_plan_id:int*, company_name:varchar(32), headquarters:varchar(32))
-* Aircraft (**int_registration_nr:int**, *airline_id:varchar(3)*, *type_id:int*, aircraft_nr:int, designation:varchar(32), entry_into_service:date)
-* Aircraft Type (**type_id:int**, manufacturer:varchar(32), range:int, max_capaxity:int)
-* Airport (**airport_id:char(3)**, *records_id*, *flight_plan_id:int*, airport_name:varchar(30), city:varchar(20), country:(20), aircraft_capacity:int)
-* Distance Records (**records_id**, departure_airport:char(3), destination_airport:char(3), distance:double)
+* Aircraft (**registration_nr:int**, *airline_id:varchar(3)*, *type_id:int*, aircraft_nr:int, designation:varchar(32), entry_into_service:date)
+* Aircraft Type (**type_id:int**, manufacturer:varchar(32), aircraft_range:double, max_capaxity:int)
+* Airport (**airport_id:char(3)**, *records_id:int*, *flight_plan_id:int*, airport_name:varchar(30), city:varchar(20), country:(20), aircraft_capacity:int)
+* Distance Records (**records_id:int**, departure_airport:char(3), destination_airport:char(3), distance:double)
 * Ticket (**ticket_nr:int**, date_of_issue:date, price:double, currency:varchar(10), sales_office:varchar(32), num_of_flights:int)
-* Boarding Card (**boarding_card_id:int**, *passenger_number:int*, *ticket_nr:int*, *flight_id:varchar(10)*, departure_date:date, departure_airport:char(3), destination_airport:char(3), first_name:varchar(20), last_name:varchar(20), row:int, seat:char(1), class:varchar(10), location:varchar(10))
+* Boarding Card (**boarding_card_id:int**, *passenger_id:int*, *ticket_nr:int*, *flight_id:varchar(10)*, departure_date:date, departure_airport:char(3), destination_airport:char(3), first_name:varchar(20), last_name:varchar(20), seating_row:int, seat:char(1), class:varchar(10), location:varchar(10))
+
+## Airways SQL Schema
+
+![Airways](airways_schema.jpg)
