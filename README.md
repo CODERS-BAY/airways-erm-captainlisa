@@ -10,23 +10,41 @@ Before starting the flight, the passenger will be given a boarding card at the a
 to hold on to.
 For each flight, it must also be possible to record the actual take-off and landing time in order to be able to make evaluations of the punctuality of individual flights.
 
+## ER-Model Teamwork
+
+![ER-Model Teamwork](ermodel_team.jpeg)
+
+## Relational Model Teamwork
+
+* Passenger (**passenger_ID:int**, first_name:varchar(20), last_name:varchar(20), salutation:varchar(5), title:varchar(20), phone:varchar(32), email:varchar(32))
+* Booking (**booking_nr:int**, departure:varchar(3), destination:varchar(3), flight_date:date, departure_time:time, arrival_time:time)
+* Flight (**flight_ID:int**, departure:varchar(3), destination:varchar(3), departure_time:time, arrival_time:time)
+* Flight Schedule (**schedule_ID:int**, *flight_ID:int*, date:date, daily:boolean, weekly:boolean, )
+* Airline (**airline_ID:int**, name:varchar(20), headquater:varchar(20), city:varchar(20))
+* Aircraft (**aircraft_nr:int**, registration_nr:int, name:varchar(20), entry_into_service:date)
+* Aircraft Type (**type_ID:int**, manufacturer:varchar(23), range:double)
+* Airport (**airport_ID:int**, name:varchar(25), city:varchar(20), country:varchar(20), aircraft_capacity:int)
+* Distance Records (**records_ID:int**, airport1:int, airport2:int, distance:double)
+
+
 ## ER-Model
 
 ![ER-Model](ermodel_airways.jpeg)
 
-## Relational Model
+### Version 2:
 
-* Passenger (**passenger-ID:int**, name:varchar(32), gender:varchar(32), title:varchar(32), date_of_birth:date)
-* Reservation (**booking-nr:int**, departure:varchar(32), destination:varchar(32), date:date, timeframe_dep:time, timeframe_arr:time)
-* Flight (**flight-nr.:varchar(32)**, date:date, departure:varchar(32), destination:varchar(32), dep_time:time, arr_time:time, actual_takeoff:time, actual_arrival:time, nr_of_seats:int, seats_taken:int)
-* Boarding Card (**_flight-nr.:varchar(32)_**, _passenger-ID:int_, _departure_airport:char_, destination:varchar(32), passenger_name:varchar(32), seat:int, row:char, date:date)
-* Ticket (**ticket-nr.:int**, date-of-issue:date, price:double, currency:char)
-* Airport (**airport-ID:varchar(32)**, city:varchar(32), country:varchar(32), name:varchar(32), aircraft-capacity:int)
-* Airline (**airline-ID:varchar(32)**, name:varchar(32), headquater:varchar(32))
-* Aircraft (**international_registration_nr.:int**, aircraft-nr:int, name:varchar(32), date_of_service_entry:date)
-* Aircraft Type (**type-ID:int**, _aircraft-nr.:int_, range:int)
-* Seat (**number:int**, row:char, smoker:boolean, first_class:boolean)
+![airways ERM](airways_updated_erm.jpeg)
 
-## ER-Model Teamwork
+## Relational Model (updated to version 2)
 
-![ER-Model Teamwork](ermodel_team.jpeg)
+* Passenger (**passenger_number:int**, first_name:varchar(20), last_name:varchar(20), salutation:varchar(5), title:varchar(10))
+* Flight (**flight_id:varchar(10)**, *flight_plan_id:int*, departure_airport:char(3), arrival_airport:char(3), departure_time:timestamp, arrival_time:timestamp, seats_available_first:int, seats_available_business:int, seats_available_economy:int, actual_departure:time, actual_arrival:time)
+* Flight Plan (**flight_plan_id:int**, flight_date:date, departure_time:timestamp, arrival_time:timestamp, is_weekly:boolean, is_daily:boolean, on_weekdays:boolean)
+* Booking (**booking_id:int**, *passenger_number:int*, departure_airport:char(3), destination_airport:char(3), flight_date:date, departure_time:time, arrival_time:time)
+* Airline (**airline_id:varchar(3)**, *flight_plan_id:int*, company_name:varchar(32), headquarters:varchar(32))
+* Aircraft (**int_registration_nr:int**, *airline_id:varchar(3)*, *type_id:int*, aircraft_nr:int, designation:varchar(32), entry_into_service:date)
+* Aircraft Type (**type_id:int**, manufacturer:varchar(32), range:int, max_capaxity:int)
+* Airport (**airport_id:char(3)**, *records_id*, *flight_plan_id:int*, airport_name:varchar(30), city:varchar(20), country:(20), aircraft_capacity:int)
+* Distance Records (**records_id**, departure_airport:char(3), destination_airport:char(3), distance:double)
+* Ticket (**ticket_nr:int**, date_of_issue:date, price:double, currency:varchar(10), sales_office:varchar(32), num_of_flights:int)
+* Boarding Card (**boarding_card_id:int**, *passenger_number:int*, *ticket_nr:int*, *flight_id:varchar(10)*, departure_date:date, departure_airport:char(3), destination_airport:char(3), first_name:varchar(20), last_name:varchar(20), row:int, seat:char(1), class:varchar(10), location:varchar(10))
